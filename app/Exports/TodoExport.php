@@ -49,8 +49,8 @@ class TodoExport implements FromCollection
         
 
             if (isset($timeRange[0]) && str_starts_with($timeRange[0], 'min=') && isset($timeRange[1]) && str_starts_with($timeRange[1], 'max=')) {
-                $minTime = (int) substr($timeRange[0], 4); // Remove "min="
-                $maxTime = (int) substr($timeRange[1], 4); // Remove "max="
+                $minTime = (int) substr($timeRange[0], 4);
+                $maxTime = (int) substr($timeRange[1], 4); 
                 $query->whereBetween('time_tracked', [$minTime, $maxTime]);
             }
         }
@@ -69,7 +69,6 @@ class TodoExport implements FromCollection
 
         $todos = $query->get();
 
-        // Include summary row
         $exportData = collect([
             ['ID', 'Title', 'Assignee', 'Due Date', 'Time Tracked', 'Status', 'Priority', 'Created At', 'Updated At']
         ]);
@@ -88,7 +87,6 @@ class TodoExport implements FromCollection
             ]);
         }
 
-        // Add summary row
         $exportData->push([
             'Total Todos:', $todos->count(),
             'Total Time Tracked:', $todos->sum('time_tracked'),
