@@ -3,6 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\TodoController;
+use App\Http\Controllers\TodoExportController;
+use App\Http\Controllers\Api\ChartController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -21,5 +23,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::prefix('v1')->group(function () {
     Route::prefix('todo')->group(function () {
         Route::post('todos', [TodoController::class, "store"]);
+        Route::get('todos/export', [TodoExportController::class, 'export']);
+        Route::get('chart', [ChartController::class, 'getChartData']);
     });
 });

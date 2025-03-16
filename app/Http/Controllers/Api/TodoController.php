@@ -20,7 +20,6 @@ class TodoController extends Controller
 
     public function store(Request $request)
     {
-        // Validate request
         $request->validate([
             'title' => 'required|string',
             'assignee' => 'nullable|string',
@@ -30,7 +29,6 @@ class TodoController extends Controller
             'priority' => 'required|in:low,medium,high',
         ]);
 
-        // Create Todo
         $todo = Todo::create($request->all());
         return response()->json(['message' => 'Todo created successfully', 'todo' => $todo], 201);
     }
